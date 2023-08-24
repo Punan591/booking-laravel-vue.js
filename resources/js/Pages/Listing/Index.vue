@@ -1,5 +1,6 @@
 <template>
-      <div v-for="listing in listings" :key="listing.id">
+   <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+      <Box v-for="listing in listings" :key="listing.id">
     <div>
       <!--<Link :href="`/listing/${listing.id}`">-->
       <Link :href="route('listing.show', {listing: listing.id})">
@@ -15,12 +16,14 @@
       <!--<Link :href="`/listing/${listing.id}`" method="DELETE" as="button">Delete</Link>-->
     </div>
     <!--Important way to specify same routes of GET,POST,PUT detection using inertia js-->
+  </Box>
   </div>
   </template>
   
   <script setup>
   import {Link} from '@inertiajs/inertia-vue3'
   import ListingAddress from '@/Components/ListingAddress.vue'
+  import Box from '@/Components/UI/Box.vue'
   defineProps({
     listings: Array,
   })
