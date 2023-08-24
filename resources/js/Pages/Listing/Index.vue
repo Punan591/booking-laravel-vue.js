@@ -1,9 +1,18 @@
 <template>
-    <div v-for="listing in listings" :key="listing.id">
+      <div v-for="listing in listings" :key="listing.id">
+    <div>
       <Link :href="`/listing/${listing.id}`">
         <ListingAddress :listing="listing" />
       </Link>
     </div>
+    <div>
+      <Link :href="`/listing/${listing.id}/edit`">Edit</Link>
+    </div>
+    <div>
+      <Link :href="`/listing/${listing.id}`" method="DELETE" as="button">Delete</Link>
+    </div>
+    <!--Important way to specify same routes of GET,POST,PUT detection using inertia js-->
+  </div>
   </template>
   
   <script setup>

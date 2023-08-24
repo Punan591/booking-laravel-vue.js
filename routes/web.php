@@ -16,6 +16,6 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('/', [IndexController::class, 'index']);
 Route::get('/hello', [IndexController::class, 'show']);
+//->except(['destroy']);
 
-Route::resource('listing', ListingController::class)
-  ->only(['index', 'show','create','store']);
+Route::resource('listing', ListingController::class);
