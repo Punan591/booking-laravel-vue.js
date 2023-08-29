@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 class IndexController extends Controller
 {
+    // dd(Auth::check());
     public function index()
     {
         return inertia('Index/Index',
