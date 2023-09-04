@@ -17,12 +17,17 @@ class ListingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         return inertia(
             'Listing/Index',
             [
-                'listings' => Listing::all()
+                'filters' => $request->only([
+                    'priceFrom', 'priceTo', 'beds', 'baths', 'areaFrom', 'areaTo'
+                ]),
+                'listings' => Listing::orderByDesc('created_at')
+                    ->paginate(10)
+                    ->withQueryString()
             ]
         );
     }
@@ -34,7 +39,6 @@ class ListingController extends Controller
      */
     public function create()
     {
-        // $this->authorize('create', Listing::class);
         return inertia('Listing/Create');
     }
 
@@ -71,10 +75,6 @@ class ListingController extends Controller
      */
     public function show(Listing $listing)
     {
-        // if (Auth::user()->cannot('view', $listing)) {
-        //     abort(403);
-        // }
-        // $this->authorize('view', $listing);
         return inertia(
             'Listing/Show',
             [
