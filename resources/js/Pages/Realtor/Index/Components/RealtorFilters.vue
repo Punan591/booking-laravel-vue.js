@@ -34,8 +34,6 @@
   import { Inertia } from '@inertiajs/inertia'
   import { debounce } from 'lodash'
   
-  //very nice example of reactive option change means if select one option for one select box option it
-  //will change all the options for other box-> Sorting example
   const sortLabels = {
     created_at: [
       {
@@ -60,11 +58,13 @@
   }
   
   const sortOptions = computed(() => sortLabels[filterForm.by])
-  
+  const props = defineProps({
+    filters: Object,
+  })
   const filterForm = reactive({
-    deleted: false,
-    by: 'created_at',
-    order: 'desc',
+    deleted: props.filters.deleted ?? false,
+    by: props.filters.by ?? 'created_at',
+    order: props.filters.order ?? 'desc',
   })
   watch(
     filterForm, debounce(() => Inertia.get(
