@@ -15,6 +15,9 @@ class Listing extends Model
     protected $fillable = [
         'beds', 'baths', 'area', 'city', 'code', 'street', 'street_nr', 'price'
     ];
+    protected $sortable = [
+        'price', 'created_at'
+    ];
 
     public function owner(): BelongsTo
     {
@@ -50,8 +53,11 @@ class Listing extends Model
             $filters['areaTo'] ?? false,
             fn ($query, $value) => $query->where('area', '<=', $value)
         )->when(
-            $filters['deleted'] ?? false,
-            fn ($query, $value) => $query->withTrashed()
+            $filters['by'] ?? false,
+            fn ($query, $value) =>
+            !in_array($value, $this->sortable)
+                ? $query :
+                $query->orderBy($value, $filters['order'] ?? 'desc')
             //To see the soft deleted values that are not shown by laravel
         );
     }

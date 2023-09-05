@@ -16,7 +16,10 @@ class RealtorListingController extends Controller
     public function index(Request $request)
     {
         $filters = [
-            'deleted' => $request->boolean('deleted')
+            //to convert $request bollean string to actual boolean value
+            'deleted' => $request->boolean('deleted'),
+            //...this three dots will add the child arrays to its parent array
+            ...$request->only(['by', 'order'])
         ];
 
         return inertia(
@@ -24,7 +27,7 @@ class RealtorListingController extends Controller
             [
                 'listings' => Auth::user()
                     ->listings()
-                    ->mostRecent()
+                    //->mostRecent()
                     ->filter($filters)
                     ->get()
             ]
