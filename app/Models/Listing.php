@@ -23,7 +23,7 @@ class Listing extends Model
             'by_user_id'
         );
     }
-    //local scope query
+
     public function scopeMostRecent(Builder $query): Builder
     {
         return $query->orderByDesc('created_at');
@@ -49,6 +49,10 @@ class Listing extends Model
         )->when(
             $filters['areaTo'] ?? false,
             fn ($query, $value) => $query->where('area', '<=', $value)
+        )->when(
+            $filters['deleted'] ?? false,
+            fn ($query, $value) => $query->withTrashed()
+            //To see the soft deleted values that are not shown by laravel
         );
     }
 }
