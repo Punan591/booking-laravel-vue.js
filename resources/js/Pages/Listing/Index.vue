@@ -14,10 +14,6 @@
       <Link :href="route('listing.edit', {listing: listing.id})">Edit</Link>
       <!--After using ziggy <Link :href="`/listing/${listing.id}/edit`">Edit</Link>-->
     </div>
-    <div>
-      <Link :href="`/listing/${listing.id}`" method="DELETE" as="button">Delete</Link>
-      <!--<Link :href="`/listing/${listing.id}`" method="DELETE" as="button">Delete</Link>-->
-    </div>
     <!--Important way to specify same routes of GET,POST,PUT detection using inertia js-->
   </Box>
   </div>
