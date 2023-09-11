@@ -51,5 +51,5 @@ Route::delete('logout', [AuthController::class, 'destroy'])
       ->withTrashed();
 
     Route::resource('listing.image', RealtorListingImageController::class)
-      ->only(['create', 'store']);
+      ->only(['create', 'store','destroy']);
   });
